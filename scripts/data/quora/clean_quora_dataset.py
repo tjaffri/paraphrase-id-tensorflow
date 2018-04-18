@@ -29,7 +29,7 @@ def main():
     # and making a list of lists the clean csv.
     logger.info("Cleaning csv")
     clean_rows = []
-    with open(config.dataset_input_path) as f:
+    with open(config.dataset_input_path,  encoding="Latin-1") as f:
         reader = csv.reader(f)
         # skip the header
         reader.__next__()
@@ -48,7 +48,7 @@ def main():
                             input_filename + "_cleaned" + input_ext)
 
     logger.info("Writing output to {}".format(out_path))
-    with open(out_path, "w") as f:
+    with open(out_path, "w",  encoding="Latin-1") as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
         writer.writerows(clean_rows)
 

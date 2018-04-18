@@ -141,7 +141,7 @@ class TextDataset(Dataset):
         logger.info("Reading files {} to a list of lines.".format(filenames))
         lines = [x.strip() for filename in filenames
                  for x in tqdm(codecs.open(filename,
-                                           "r", "utf-8").readlines())]
+                                           "r", encoding="Latin-1").readlines())]
         return TextDataset.read_from_lines(lines, instance_class)
 
     @staticmethod
@@ -174,7 +174,11 @@ class TextDataset(Dataset):
                              "of type {}".format(lines[0], type(lines[0])))
         logger.info("Creating list of {} instances from "
                     "list of lines.".format(instance_class))
-        instances = [instance_class.read_from_line(line) for line in tqdm(lines)]
+        instances = []
+        for line in tqdm(lines):
+            if line.strip(): # skip whitespace lines
+                instances.append(instance_class.read_from_line(line))
+
         labels = [(x.label, x) for x in instances]
         labels.sort(key=lambda x: str(x[0]))
         label_counts = [(label, len([x for x in group]))

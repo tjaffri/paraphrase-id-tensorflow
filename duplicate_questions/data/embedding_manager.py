@@ -99,7 +99,7 @@ class EmbeddingManager():
             logger.info("Reading pretrained "
                         "embeddings from {}".format(
                             pretrained_embeddings_file_path))
-            with open(pretrained_embeddings_file_path) as embedding_file:
+            with open(pretrained_embeddings_file_path, encoding="Latin-1") as embedding_file:
                 for line in tqdm(embedding_file):
                     fields = line.strip().split(" ")
                     if len(fields) - 1 <= 1:

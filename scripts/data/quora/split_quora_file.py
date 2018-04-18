@@ -29,7 +29,7 @@ def main():
 
     # Get the data
     logger.info("Reading csv at {}".format(config.dataset_input_path))
-    with open(config.dataset_input_path) as f:
+    with open(config.dataset_input_path, encoding="Latin-1") as f:
         reader = csv.reader(f)
         csv_rows = list(reader)
 
@@ -49,12 +49,12 @@ def main():
                                 input_filename + "_val_split" + input_ext)
 
     logger.info("Writing train split output to {}".format(train_out_path))
-    with open(train_out_path, "w") as f:
+    with open(train_out_path, "w", encoding="Latin-1") as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
         writer.writerows(csv_rows[num_validation_lines:])
 
     logger.info("Writing validation split output to {}".format(val_out_path))
-    with open(val_out_path, "w") as f:
+    with open(val_out_path, "w", encoding="Latin-1") as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
         writer.writerows(csv_rows[:num_validation_lines])
 
